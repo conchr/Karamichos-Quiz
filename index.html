@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Κουίζ: Ο Πύργος του Καραμίχου</title>
     <style>
-        /* Custom CSS για αισθητική παιχνιδιού */
+        /* Βασικά στυλ */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Georgia', serif;
             background: #8b7355; /* Καφέ φόντο που μοιάζει με ξύλο */
@@ -27,7 +33,7 @@
                 0 10px 25px rgba(0, 0, 0, 0.3),
                 0 0 30px rgba(139, 115, 85, 0.2) inset, /* Σκιά προς τα μέσα */
                 0 0 15px rgba(0, 0, 0, 0.1); /* Εξωτερική σκιά */
-            max-width: 600px;
+            max-width: 800px;
             width: 100%;
             transition: all 0.3s ease;
             position: relative;
@@ -73,7 +79,7 @@
         }
 
         h1 {
-            font-size: 1.8rem;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
             text-align: center;
             color: #5d4037; /* Σκούρο καφέ αντί για μπλε */
             margin-bottom: 25px;
@@ -87,28 +93,38 @@
             padding: 15px;
             border-radius: 5px;
             margin-bottom: 20px;
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
             font-weight: bold;
             box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
             border: 1px solid #d7ccc8; /* Απαλό περίγραμμα */
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .choices {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
         .choices button {
-            display: block;
-            width: 100%;
             padding: 12px 20px;
-            margin-bottom: 10px;
             border: none;
             border-radius: 5px;
             background-color: #d7ccc8; /* Ανοιχτό καφέ */
             color: #4e342e;
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
             text-align: left;
             border: 1px solid #bcaaa4;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
         }
 
         .choices button:hover:not(:disabled) {
@@ -145,126 +161,42 @@
             border-color: #e57373 !important;
         }
 
-        .footer {
+        /* Πλοήγηση */
+        .navigation {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: 20px;
             border-top: 1px solid #d7ccc8;
             padding-top: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .score-display, .question-number {
-            font-weight: bold;
-            color: #5d4037;
-        }
-
-        /* Modal για τα αποτελέσματα */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+        .nav-buttons {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease;
+            gap: 10px;
+            flex: 1;
         }
 
-        .modal.open {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background-color: #f5f1e6;
-            padding: 40px;
-            border-radius: 5px;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            color: #3e2723;
-            position: relative;
-            overflow: hidden;
-            
-            /* Ίδιο στυλ παλιού χαρτιού */
-            background-image: 
-                linear-gradient(rgba(210, 180, 140, 0.3) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(210, 180, 140, 0.3) 1px, transparent 1px);
-            background-size: 20px 20px, 20px 20px;
-        }
-
-        .modal-content::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(220, 200, 170, 0.2) 0%, transparent 20%),
-                radial-gradient(circle at 80% 70%, rgba(200, 180, 150, 0.2) 0%, transparent 20%);
-            pointer-events: none;
-        }
-
-        .modal-content h2 {
-            font-size: 2rem;
-            color: #5d4037;
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .modal-content p {
-            font-size: 1.1rem;
-            margin-bottom: 25px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .modal-content button {
-            background-color: #8d6e63;
+        /* Αριστερά κουμπί */
+        #prev-btn {
+            background-color: #a1887f;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border: none;
             border-radius: 5px;
             font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s;
-            margin: 5px;
-            position: relative;
-            z-index: 2;
+            transition: all 0.3s;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 140px;
         }
 
-        .modal-content button:hover {
-            background-color: #6d4c41;
-        }
-        
-        /* Κουμπί Επιστροφής */
-        #return-btn {
-            background-color: #a1887f;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: background-color 0.3s;
-            display: inline-block;
-            margin-top: 15px;
-            position: relative;
-            z-index: 2;
-        }
-
-        #return-btn:hover {
-            background-color: #8d6e63;
-        }
-
-        /* Βελτιωμένο κουμπί Επόμενης Ερώτησης */
+        /* Δεξιά κουμπί */
         #next-btn {
             background-color: #8d6e63;
             color: white;
@@ -275,6 +207,17 @@
             cursor: pointer;
             transition: all 0.3s;
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 140px;
+            margin-left: auto; /* Αυτό το ωθεί προς τα δεξιά */
+        }
+
+        #prev-btn:hover:not(:disabled) {
+            background-color: #8d6e63;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.25);
         }
 
         #next-btn:hover:not(:disabled) {
@@ -283,11 +226,13 @@
             box-shadow: 0 5px 8px rgba(0, 0, 0, 0.25);
         }
 
+        #prev-btn:active:not(:disabled),
         #next-btn:active:not(:disabled) {
             transform: translateY(1px);
             box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
         }
 
+        #prev-btn:disabled,
         #next-btn:disabled {
             background-color: #bcaaa4;
             cursor: not-allowed;
@@ -295,54 +240,245 @@
             transform: none;
         }
 
-        /* Media Queries για καλύτερη εμφάνιση σε κινητά */
-        @media (max-width: 650px) {
+        .center-button {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        #home-btn {
+            background-color: #a1887f;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+            min-width: 160px;
+        }
+
+        #home-btn:hover {
+            background-color: #8d6e63;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: #5d4037;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+
+        /* Προσθήκη δείκτη προόδου */
+        .progress-bar {
+            height: 6px;
+            background-color: #d7ccc8;
+            border-radius: 3px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #8d6e63;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Σελίδα αποτελεσμάτων */
+        .results-page {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .results-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            color: #5d4037;
+            margin-bottom: 20px;
+        }
+
+        .results-score {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: #5d4037;
+            margin: 30px 0;
+            font-weight: bold;
+        }
+
+        .results-message {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            margin-bottom: 40px;
+            color: #4e342e;
+        }
+
+        .results-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .results-buttons button, .results-buttons a {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            display: inline-block;
+            min-width: 200px;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+
+        #restart-btn {
+            background-color: #8d6e63;
+            color: white;
+        }
+
+        #restart-btn:hover {
+            background-color: #6d4c41;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        #results-home-btn {
+            background-color: #a1887f;
+            color: white;
+        }
+
+        #results-home-btn:hover {
+            background-color: #8d6e63;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Media Queries για βελτιστοποίηση σε όλες τις συσκευές */
+        /* Smartphones - Portrait */
+        @media (max-width: 480px) and (orientation: portrait) {
+            body {
+                padding: 10px;
+            }
+            
             .quiz-container {
-                margin: 10px;
                 padding: 20px;
             }
-            h1 {
-                font-size: 1.5rem;
-            }
+            
             .choices button {
-                font-size: 0.95rem;
+                padding: 10px 15px;
+                min-height: 50px;
             }
-            .footer {
-                flex-direction: column;
-                gap: 15px;
+            
+            .nav-buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            #prev-btn, #next-btn {
+                min-width: 120px;
+                padding: 10px 15px;
+            }
+        }
+
+        /* Smartphones - Landscape */
+        @media (max-height: 480px) and (orientation: landscape) {
+            .quiz-container {
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            
+            .question-box {
+                min-height: 60px;
+                padding: 10px;
+            }
+            
+            .choices button {
+                min-height: 45px;
+                padding: 8px 15px;
+            }
+        }
+
+        /* Tablets */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .quiz-container {
+                max-width: 90%;
+            }
+            
+            .choices {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Laptops & Desktops */
+        @media (min-width: 1025px) {
+            .quiz-container {
+                max-width: 800px;
+            }
+        }
+
+        /* 4K Screens */
+        @media (min-width: 2000px) {
+            .quiz-container {
+                max-width: 1200px;
+                padding: 50px;
+            }
+            
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .question-box {
+                font-size: 1.8rem;
+                min-height: 120px;
+            }
+            
+            .choices button {
+                font-size: 1.5rem;
+                min-height: 80px;
+            }
+            
+            #prev-btn, #next-btn, #home-btn {
+                font-size: 1.3rem;
+                padding: 15px 30px;
+            }
+            
+            .results-buttons button, .results-buttons a {
+                font-size: 1.5rem;
+                padding: 20px 40px;
+                min-width: 250px;
+            }
+        }
+
+        /* Προσαρμογή για μικρές οθόνες */
+        @media (max-width: 350px) {
+            .quiz-container {
+                padding: 15px;
+            }
+            
+            #prev-btn, #next-btn {
+                min-width: 100px;
+                padding: 10px 15px;
+            }
+            
+            #home-btn {
+                min-width: 140px;
+                padding: 10px 15px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="quiz-container">
-        <h1>Κουίζ Ιστορίας: Ο Πύργος του Καραμίχου</h1>
-
-        <div class="question-number" id="question-number">Ερώτηση 1 / 15</div>
-        <div class="question-box" id="question-box"></div>
-
-        <div class="choices" id="choices-container">
-            <!-- Οι επιλογές θα εισαχθούν εδώ από το JavaScript -->
-        </div>
-
-        <div class="footer">
-            <button id="next-btn" disabled>
-                Επόμενη Ερώτηση
-            </button>
-            <div class="score-display">Σκορ: <span id="score">0</span></div>
-        </div>
-    </div>
-
-    <!-- Modal Αποτελεσμάτων -->
-    <div id="results-modal" class="modal">
-        <div class="modal-content">
-            <h2>🎉 Ολοκληρώθηκε το Κουίζ!</h2>
-            <p>Το τελικό σου σκορ είναι: <span id="final-score" style="font-size: 1.5rem; font-weight: bold; color: #5d4037;"></span></p>
-            <p id="performance-message"></p>
-            <button id="restart-btn">Ξανά από την αρχή</button>
-            <a id="return-btn" href="https://conchr.github.io/Farsala-Center-Page/">Επιστροφή στην Αρχική Σελίδα</a>
-        </div>
+    <div class="quiz-container" id="quiz-container">
+        <!-- Το περιεχόμενο θα αλλάζει δυναμικά -->
     </div>
 
     <script>
@@ -426,47 +562,100 @@
         ];
 
         let currentQuestionIndex = 0;
-        let score = 0;
         let questionAnswered = false;
+        let userAnswers = new Array(quizData.length).fill(null);
+        let correctAnswersCount = 0;
 
-        const questionBox = document.getElementById('question-box');
-        const choicesContainer = document.getElementById('choices-container');
-        const scoreDisplay = document.getElementById('score');
-        const nextBtn = document.getElementById('next-btn');
-        const questionNumberIndicator = document.getElementById('question-number');
-        const modal = document.getElementById('results-modal');
-        const finalScoreSpan = document.getElementById('final-score');
-        const restartBtn = document.getElementById('restart-btn');
-        const performanceMessage = document.getElementById('performance-message');
+        const quizContainer = document.getElementById('quiz-container');
+
+        /**
+         * Αρχικοποιεί το κουίζ
+         */
+        function initQuiz() {
+            currentQuestionIndex = 0;
+            questionAnswered = false;
+            userAnswers.fill(null);
+            correctAnswersCount = 0;
+            loadQuestionPage();
+        }
 
         /**
          * Φορτώνει και εμφανίζει την τρέχουσα ερώτηση.
          */
-        function loadQuestion() {
+        function loadQuestionPage() {
             if (currentQuestionIndex >= quizData.length) {
-                showResults();
+                showResultsPage();
                 return;
             }
 
             questionAnswered = false;
-            nextBtn.disabled = true;
-            questionNumberIndicator.textContent = `Ερώτηση ${currentQuestionIndex + 1} / ${quizData.length}`;
-
+            updateNavigationButtons();
+            
             const currentQuestion = quizData[currentQuestionIndex];
-            questionBox.textContent = currentQuestion.question;
-            choicesContainer.innerHTML = '';
+            
+            // Δημιουργία HTML για τη σελίδα ερώτησης
+            quizContainer.innerHTML = `
+                <h1>Κουίζ Ιστορίας: Ο Πύργος του Καραμίχου</h1>
 
-            // Δημιουργία κουμπιών επιλογών
-            currentQuestion.choices.forEach(choice => {
-                const button = document.createElement('button');
-                button.textContent = choice;
-                button.addEventListener('click', () => checkAnswer(button, choice, currentQuestion.answer));
-                choicesContainer.appendChild(button);
+                <div class="question-number" id="question-number">Ερώτηση ${currentQuestionIndex + 1} / ${quizData.length}</div>
+                
+                <!-- Δείκτης προόδου -->
+                <div class="progress-bar">
+                    <div class="progress" id="progress-bar" style="width: ${(currentQuestionIndex / quizData.length) * 100}%"></div>
+                </div>
+                
+                <div class="question-box" id="question-box">${currentQuestion.question}</div>
+
+                <div class="choices" id="choices-container">
+                    ${currentQuestion.choices.map((choice, index) => {
+                        let buttonClass = '';
+                        let disabled = '';
+                        
+                        // Ελέγχουμε αν υπάρχει προηγούμενη απάντηση για αυτή την ερώτηση
+                        if (userAnswers[currentQuestionIndex] === choice) {
+                            buttonClass = userAnswers[currentQuestionIndex] === currentQuestion.answer ? 'correct' : 'incorrect';
+                            disabled = 'disabled';
+                        }
+                        
+                        return `<button ${disabled} class="${buttonClass}" data-choice="${choice}">${choice}</button>`;
+                    }).join('')}
+                </div>
+
+                <div class="navigation">
+                    <div class="nav-buttons">
+                        <button id="prev-btn" ${currentQuestionIndex === 0 ? 'disabled' : ''}>
+                            Προηγούμενη
+                        </button>
+                        <button id="next-btn" ${!questionAnswered && userAnswers[currentQuestionIndex] === null ? 'disabled' : ''}>
+                            ${currentQuestionIndex === quizData.length - 1 ? 'Τέλος' : 'Επόμενη'}
+                        </button>
+                    </div>
+                    <div class="center-button">
+                        <a id="home-btn" href="https://conchr.github.io/Farsala-Center-Page/">Κεντρική Σελίδα</a>
+                    </div>
+                </div>
+            `;
+
+            // Προσθήκη event listeners στα κουμπιά επιλογών
+            const choiceButtons = document.querySelectorAll('.choices button');
+            choiceButtons.forEach(button => {
+                button.addEventListener('click', () => checkAnswer(button, button.dataset.choice, currentQuestion.answer));
             });
+
+            // Προσθήκη event listeners στα κουμπιά πλοήγησης
+            document.getElementById('prev-btn').addEventListener('click', prevQuestion);
+            document.getElementById('next-btn').addEventListener('click', nextQuestion);
         }
 
         /**
-         * Ελέγχει την απάντηση, ενημερώνει το σκορ και απενεργοποιεί τα κουμπιά.
+         * Ενημερώνει την κατάσταση των κουμπιών πλοήγησης.
+         */
+        function updateNavigationButtons() {
+            // Αυτό γίνεται αυτόματα με την ανασχεδίαση της σελίδας
+        }
+
+        /**
+         * Ελέγχει την απάντηση, αποθηκεύει την απάντηση του χρήστη και απενεργοποιεί τα κουμπιά.
          * @param {HTMLButtonElement} selectedButton - Το κουμπί που επέλεξε ο χρήστης.
          * @param {string} selectedChoice - Η επιλογή του χρήστη.
          * @param {string} correctAnswer - Η σωστή απάντηση.
@@ -475,44 +664,64 @@
             if (questionAnswered) return;
 
             questionAnswered = true;
-            nextBtn.disabled = false;
+            userAnswers[currentQuestionIndex] = selectedChoice;
+            
+            if (selectedChoice === correctAnswer) {
+                correctAnswersCount++;
+            }
 
-            const allButtons = choicesContainer.querySelectorAll('button');
+            // Ενεργοποίηση του κουμπιού "Επόμενη"
+            document.getElementById('next-btn').disabled = false;
+
+            const allButtons = document.querySelectorAll('.choices button');
             allButtons.forEach(btn => {
                 btn.disabled = true;
-                if (btn.textContent === correctAnswer) {
+                if (btn.dataset.choice === correctAnswer) {
                     btn.classList.add('correct');
                 }
             });
 
             if (selectedChoice === correctAnswer) {
-                score++;
                 selectedButton.classList.add('correct');
             } else {
                 selectedButton.classList.add('incorrect');
             }
-
-            scoreDisplay.textContent = score;
         }
 
         /**
          * Προχωρά στην επόμενη ερώτηση.
          */
         function nextQuestion() {
-            if (questionAnswered) {
-                currentQuestionIndex++;
-                loadQuestion();
+            if (currentQuestionIndex < quizData.length - 1) {
+                if (questionAnswered || userAnswers[currentQuestionIndex] !== null) {
+                    currentQuestionIndex++;
+                    loadQuestionPage();
+                }
+            } else {
+                // Τέλος του κουίζ
+                showResultsPage();
             }
         }
 
         /**
-         * Εμφανίζει το modal με τα τελικά αποτελέσματα.
+         * Επιστρέφει στην προηγούμενη ερώτηση.
          */
-        function showResults() {
-            finalScoreSpan.textContent = `${score} / ${quizData.length}`;
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestionPage();
+            }
+        }
+
+        /**
+         * Εμφανίζει τη σελίδα αποτελεσμάτων.
+         */
+        function showResultsPage() {
+            // Ολοκλήρωση του δείκτη προόδου
+            const progressPercentage = 100;
             
-            // Προσθήκη μηνύματος απόδοσης
-            const percentage = (score / quizData.length) * 100;
+            // Προσδιορισμός μηνύματος απόδοσης
+            const percentage = (correctAnswersCount / quizData.length) * 100;
             let message = "";
             if (percentage >= 90) {
                 message = "Εξαιρετική απόδοση! Είσαι ειδικός στην ιστορία του Πύργου του Καραμίχου!";
@@ -523,28 +732,38 @@
             } else {
                 message = "Μπορείς να διαβάσεις περισσότερα για τον Πύργο του Καραμίχου και να προσπαθήσεις ξανά!";
             }
-            performanceMessage.textContent = message;
             
-            modal.classList.add('open');
+            // Δημιουργία HTML για τη σελίδα αποτελεσμάτων
+            quizContainer.innerHTML = `
+                <div class="results-page">
+                    <h2 class="results-title">🎉 Ολοκληρώθηκε το Κουίζ!</h2>
+                    <div class="results-score">${correctAnswersCount} / ${quizData.length}</div>
+                    <div class="results-message">${message}</div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: ${progressPercentage}%"></div>
+                    </div>
+                    <div class="results-buttons">
+                        <button id="restart-btn">Κάνε πάλι το Κουίζ</button>
+                        <a id="results-home-btn" href="https://conchr.github.io/Farsala-Center-Page/">Κεντρική Σελίδα</a>
+                    </div>
+                </div>
+            `;
+            
+            // Προσθήκη event listener στο κουμπί επανάληψης
+            document.getElementById('restart-btn').addEventListener('click', initQuiz);
         }
 
-        /**
-         * Επαναφέρει το παιχνίδι στην αρχική του κατάσταση.
-         */
-        function restartQuiz() {
-            currentQuestionIndex = 0;
-            score = 0;
-            scoreDisplay.textContent = score;
-            modal.classList.remove('open');
-            loadQuestion();
-        }
-
-        // Σύνδεση Event Listeners
-        nextBtn.addEventListener('click', nextQuestion);
-        restartBtn.addEventListener('click', restartQuiz);
+        // Χειρισμός πλήκτρων πληκτρολογίου (βέλη αριστερά και δεξιά)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                prevQuestion();
+            } else if (e.key === 'ArrowRight') {
+                nextQuestion();
+            }
+        });
 
         // Εκκίνηση του Κουίζ
-        loadQuestion();
+        initQuiz();
     </script>
 </body>
 </html>
