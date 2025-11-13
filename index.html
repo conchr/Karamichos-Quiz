@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Georgia', serif;
-            background: #8b7355; /* Καφέ φόντο που μοιάζει με ξύλο */
+            background: linear-gradient(135deg, #8b7355 0%, #a08668 50%, #8b7355 100%);
             color: #3e2723;
             display: flex;
             justify-content: center;
@@ -25,14 +25,14 @@
         }
 
         .quiz-container {
-            background-color: #f5f1e6; /* Βασικό χρώμα παλιού χαρτιού */
+            background: linear-gradient(145deg, #f5f1e6, #e8dfca);
             color: #3e2723;
             padding: 30px;
-            border-radius: 5px; /* Μικρότερη ακτίνα για πιο "τετράγωνο" χαρτί */
+            border-radius: 8px;
             box-shadow: 
-                0 10px 25px rgba(0, 0, 0, 0.3),
-                0 0 30px rgba(139, 115, 85, 0.2) inset, /* Σκιά προς τα μέσα */
-                0 0 15px rgba(0, 0, 0, 0.1); /* Εξωτερική σκιά */
+                0 15px 30px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(139, 115, 85, 0.2) inset,
+                0 0 20px rgba(0, 0, 0, 0.15);
             max-width: 800px;
             width: 100%;
             transition: all 0.3s ease;
@@ -47,12 +47,10 @@
                 linear-gradient(90deg, rgba(245, 241, 230, 0.8) 2px, transparent 2px);
             background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
             
-            /* Ανομοιόμορφο χρώμα */
             background-color: #f5f1e6;
             background-blend-mode: multiply;
-            
-            /* Ζάρες και κηλίδες */
             position: relative;
+            border: 2px solid #d4a76a;
         }
 
         /* Προσομοίωση ζαρών στο χαρτί */
@@ -81,22 +79,23 @@
         h1 {
             font-size: clamp(1.5rem, 4vw, 2.2rem);
             text-align: center;
-            color: #5d4037; /* Σκούρο καφέ αντί για μπλε */
+            color: #5d4037;
             margin-bottom: 25px;
-            border-bottom: 2px solid #8d6e63; /* Καφέ γραμμή */
+            border-bottom: 3px solid #f59e0b;
             padding-bottom: 10px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
 
         .question-box {
-            background-color: rgba(237, 231, 216, 0.8); /* Ανοιχτό καφέ για την ερώτηση */
-            padding: 15px;
-            border-radius: 5px;
+            background: linear-gradient(145deg, #dbeafe, #93c5fd);
+            padding: 20px;
+            border-radius: 8px;
             margin-bottom: 20px;
             font-size: clamp(1rem, 2.5vw, 1.3rem);
             font-weight: bold;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-            border: 1px solid #d7ccc8; /* Απαλό περίγραμμα */
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.15);
+            border: 2px solid #3b82f6;
+            border-left: 6px solid #3b82f6;
             min-height: 80px;
             display: flex;
             align-items: center;
@@ -105,60 +104,60 @@
         .choices {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 10px;
+            gap: 12px;
             margin-bottom: 20px;
         }
 
         .choices button {
-            padding: 12px 20px;
+            padding: 15px 20px;
             border: none;
-            border-radius: 5px;
-            background-color: #d7ccc8; /* Ανοιχτό καφέ */
+            border-radius: 8px;
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
             color: #4e342e;
             font-size: clamp(0.9rem, 2vw, 1.1rem);
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
             text-align: left;
-            border: 1px solid #bcaaa4;
-            min-height: 60px;
+            border: 2px solid #d1d5db;
+            min-height: 65px;
             display: flex;
             align-items: center;
         }
 
         .choices button:hover:not(:disabled) {
-            background-color: #bcaaa4;
+            background: linear-gradient(145deg, #f8fafc, #e2e8f0);
             color: #3e2723;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
         }
 
         .choices button:active:not(:disabled) {
             transform: translateY(1px);
-            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
         }
 
         /* Κατάσταση απενεργοποίησης μετά την επιλογή */
         .choices button:disabled {
             opacity: 0.9;
             cursor: not-allowed;
-            box-shadow: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         /* Στυλ για σωστή και λανθασμένη απάντηση */
         .correct {
-            background-color: #a5d6a7 !important; /* Ανοιχτό πράσινο */
-            color: #1b5e20 !important;
-            box-shadow: 0 3px 5px rgba(76, 175, 80, 0.3) !important;
-            border-color: #81c784 !important;
+            background: linear-gradient(145deg, #b9fbc0, #86efac) !important;
+            color: #047857 !important;
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3) !important;
+            border-color: #047857 !important;
         }
 
         .incorrect {
-            background-color: #ef9a9a !important; /* Ανοιχτό κόκκινο */
-            color: #b71c1c !important;
-            box-shadow: 0 3px 5px rgba(244, 67, 54, 0.3) !important;
-            border-color: #e57373 !important;
+            background: linear-gradient(145deg, #ffc9c9, #fca5a5) !important;
+            color: #b91c1c !important;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3) !important;
+            border-color: #b91c1c !important;
         }
 
         /* Πλοήγηση */
@@ -167,76 +166,76 @@
             justify-content: space-between;
             align-items: center;
             margin-top: 20px;
-            border-top: 1px solid #d7ccc8;
-            padding-top: 15px;
+            border-top: 2px solid #d7ccc8;
+            padding-top: 20px;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 15px;
         }
 
         .nav-buttons {
             display: flex;
-            gap: 10px;
+            gap: 15px;
             flex: 1;
         }
 
         /* Αριστερά κουμπί */
         #prev-btn {
-            background-color: #a1887f;
+            background: linear-gradient(145deg, #a1887f, #8d6e63);
             color: white;
-            padding: 12px 24px;
+            padding: 14px 28px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 140px;
+            min-width: 150px;
         }
 
         /* Δεξιά κουμπί */
         #next-btn {
-            background-color: #8d6e63;
+            background: linear-gradient(145deg, #fbbf24, #f59e0b);
             color: white;
-            padding: 12px 24px;
+            padding: 14px 28px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 140px;
-            margin-left: auto; /* Αυτό το ωθεί προς τα δεξιά */
+            min-width: 150px;
+            margin-left: auto;
         }
 
         #prev-btn:hover:not(:disabled) {
-            background-color: #8d6e63;
+            background: linear-gradient(145deg, #8d6e63, #6d4c41);
             transform: translateY(-2px);
-            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
         }
 
         #next-btn:hover:not(:disabled) {
-            background-color: #6d4c41;
+            background: linear-gradient(145deg, #fcd34d, #fbbf24);
             transform: translateY(-2px);
-            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
         }
 
         #prev-btn:active:not(:disabled),
         #next-btn:active:not(:disabled) {
             transform: translateY(1px);
-            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
         }
 
         #prev-btn:disabled,
         #next-btn:disabled {
-            background-color: #bcaaa4;
+            background: linear-gradient(145deg, #bcaaa4, #a1887f);
             cursor: not-allowed;
-            box-shadow: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             transform: none;
         }
 
@@ -248,48 +247,56 @@
         }
 
         #home-btn {
-            background-color: #a1887f;
+            background: linear-gradient(145deg, #8b5cf6, #7c3aed);
             color: white;
-            padding: 12px 24px;
-            border-radius: 5px;
+            padding: 14px 28px;
+            border-radius: 8px;
             font-weight: bold;
             text-decoration: none;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
             display: inline-block;
             border: none;
             cursor: pointer;
-            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-            min-width: 160px;
+            box-shadow: 0 4px 8px rgba(124, 58, 237, 0.3);
+            min-width: 180px;
+            text-align: center;
         }
 
         #home-btn:hover {
-            background-color: #8d6e63;
+            background: linear-gradient(145deg, #a78bfa, #8b5cf6);
             transform: translateY(-2px);
-            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 6px 12px rgba(124, 58, 237, 0.4);
         }
 
         .question-number {
             font-weight: bold;
-            color: #5d4037;
+            color: white;
             text-align: center;
             margin-bottom: 15px;
             font-size: clamp(1rem, 2.5vw, 1.2rem);
+            background: linear-gradient(145deg, #6366f1, #4f46e5);
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+            display: inline-block;
         }
 
         /* Προσθήκη δείκτη προόδου */
         .progress-bar {
-            height: 6px;
-            background-color: #d7ccc8;
-            border-radius: 3px;
-            margin: 15px 0;
+            height: 8px;
+            background: linear-gradient(145deg, #d7ccc8, #bcaaa4);
+            border-radius: 4px;
+            margin: 20px 0;
             overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .progress {
             height: 100%;
-            background-color: #8d6e63;
+            background: linear-gradient(145deg, #10b981, #059669);
             width: 0%;
             transition: width 0.3s ease;
+            box-shadow: 0 2px 4px rgba(6, 95, 70, 0.3);
         }
 
         /* Σελίδα αποτελεσμάτων */
@@ -306,15 +313,20 @@
 
         .results-score {
             font-size: clamp(2rem, 5vw, 3.5rem);
-            color: #5d4037;
+            color: #f59e0b;
             margin: 30px 0;
             font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .results-message {
             font-size: clamp(1.2rem, 3vw, 1.5rem);
             margin-bottom: 40px;
             color: #4e342e;
+            padding: 15px;
+            border-radius: 8px;
+            background: linear-gradient(145deg, #fef3c7, #fde68a);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .results-buttons {
@@ -326,39 +338,56 @@
         }
 
         .results-buttons button, .results-buttons a {
-            padding: 15px 30px;
+            padding: 16px 32px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             text-decoration: none;
             display: inline-block;
-            min-width: 200px;
+            min-width: 220px;
             font-size: clamp(1rem, 2.5vw, 1.2rem);
+            text-align: center;
         }
 
         #restart-btn {
-            background-color: #8d6e63;
+            background: linear-gradient(145deg, #3b82f6, #1d4ed8);
             color: white;
         }
 
         #restart-btn:hover {
-            background-color: #6d4c41;
+            background: linear-gradient(145deg, #60a5fa, #3b82f6);
             transform: translateY(-2px);
-            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
         }
 
         #results-home-btn {
-            background-color: #a1887f;
+            background: linear-gradient(145deg, #8b5cf6, #7c3aed);
             color: white;
         }
 
         #results-home-btn:hover {
-            background-color: #8d6e63;
+            background: linear-gradient(145deg, #a78bfa, #8b5cf6);
             transform: translateY(-2px);
-            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 6px 12px rgba(124, 58, 237, 0.3);
+        }
+
+        /* Εμφάνιση οδηγιών για πλοήγηση με βέλη */
+        .key-hint {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #fbbf24, #f59e0b);
+            border: 1px solid #d97706;
+            border-radius: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #7c2d12;
+            margin: 0 0.25rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         /* Media Queries για βελτιστοποίηση σε όλες τις συσκευές */
@@ -373,8 +402,8 @@
             }
             
             .choices button {
-                padding: 10px 15px;
-                min-height: 50px;
+                padding: 12px 15px;
+                min-height: 55px;
             }
             
             .nav-buttons {
@@ -383,8 +412,8 @@
             }
             
             #prev-btn, #next-btn {
-                min-width: 120px;
-                padding: 10px 15px;
+                min-width: 130px;
+                padding: 12px 20px;
             }
         }
 
@@ -397,12 +426,12 @@
             
             .question-box {
                 min-height: 60px;
-                padding: 10px;
+                padding: 15px;
             }
             
             .choices button {
-                min-height: 45px;
-                padding: 8px 15px;
+                min-height: 50px;
+                padding: 10px 15px;
             }
         }
 
@@ -447,7 +476,7 @@
             
             #prev-btn, #next-btn, #home-btn {
                 font-size: 1.3rem;
-                padding: 15px 30px;
+                padding: 18px 36px;
             }
             
             .results-buttons button, .results-buttons a {
@@ -464,13 +493,13 @@
             }
             
             #prev-btn, #next-btn {
-                min-width: 100px;
-                padding: 10px 15px;
+                min-width: 110px;
+                padding: 12px 18px;
             }
             
             #home-btn {
-                min-width: 140px;
-                padding: 10px 15px;
+                min-width: 150px;
+                padding: 12px 18px;
             }
         }
     </style>
@@ -595,9 +624,15 @@
             
             // Δημιουργία HTML για τη σελίδα ερώτησης
             quizContainer.innerHTML = `
-                <h1>Κουίζ Ιστορίας: Ο Πύργος του Καραμίχου</h1>
+                <h1>🏰 Κουίζ Ιστορίας: Ο Πύργος του Καραμίχου 🏰</h1>
 
-                <div class="question-number" id="question-number">Ερώτηση ${currentQuestionIndex + 1} / ${quizData.length}</div>
+                <div class="key-hint-container" style="text-align: center; margin-bottom: 15px; font-size: 0.9rem; color: #5d4037;">
+                    Χρησιμοποιήστε τα <span class="key-hint">←</span> και <span class="key-hint">→</span> για πλοήγηση
+                </div>
+
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div class="question-number">Ερώτηση ${currentQuestionIndex + 1} / ${quizData.length}</div>
+                </div>
                 
                 <!-- Δείκτης προόδου -->
                 <div class="progress-bar">
@@ -624,14 +659,14 @@
                 <div class="navigation">
                     <div class="nav-buttons">
                         <button id="prev-btn" ${currentQuestionIndex === 0 ? 'disabled' : ''}>
-                            Προηγούμενη
+                            ⬅️ Προηγούμενη
                         </button>
                         <button id="next-btn" ${!questionAnswered && userAnswers[currentQuestionIndex] === null ? 'disabled' : ''}>
-                            ${currentQuestionIndex === quizData.length - 1 ? 'Τέλος' : 'Επόμενη'}
+                            ${currentQuestionIndex === quizData.length - 1 ? '🏁 Τέλος' : 'Επόμενη ➡️'}
                         </button>
                     </div>
                     <div class="center-button">
-                        <a id="home-btn" href="https://conchr.github.io/Farsala-Center-Page/">Κεντρική Σελίδα</a>
+                        <a id="home-btn" href="https://conchr.github.io/Games/">🏠 Κεντρική Σελίδα</a>
                     </div>
                 </div>
             `;
@@ -723,28 +758,33 @@
             // Προσδιορισμός μηνύματος απόδοσης
             const percentage = (correctAnswersCount / quizData.length) * 100;
             let message = "";
+            let messageClass = "";
             if (percentage >= 90) {
-                message = "Εξαιρετική απόδοση! Είσαι ειδικός στην ιστορία του Πύργου του Καραμίχου!";
+                message = "🎖️ Εξαιρετική απόδοση! Είσαι ειδικός στην ιστορία του Πύργου του Καραμίχου!";
+                messageClass = "text-green-700";
             } else if (percentage >= 70) {
-                message = "Πολύ καλά! Έχεις καλή γνώση για τον Πύργο του Καραμίχου.";
+                message = "⭐ Πολύ καλά! Έχεις καλή γνώση για τον Πύργο του Καραμίχου.";
+                messageClass = "text-yellow-700";
             } else if (percentage >= 50) {
-                message = "Καλά! Υπάρχει χώρος για βελτίωση, αλλά τα πήγες καλά.";
+                message = "👍 Καλά! Υπάρχει χώρος για βελτίωση, αλλά τα πήγες καλά.";
+                messageClass = "text-orange-700";
             } else {
-                message = "Μπορείς να διαβάσεις περισσότερα για τον Πύργο του Καραμίχου και να προσπαθήσεις ξανά!";
+                message = "📚 Μπορείς να διαβάσεις περισσότερα για τον Πύργο του Καραμίχου και να προσπαθήσεις ξανά!";
+                messageClass = "text-red-700";
             }
             
             // Δημιουργία HTML για τη σελίδα αποτελεσμάτων
             quizContainer.innerHTML = `
                 <div class="results-page">
-                    <h2 class="results-title">🎉 Ολοκληρώθηκε το Κουίζ!</h2>
+                    <h2 class="results-title">🎉 Ολοκληρώθηκε το Κουίζ! 🎉</h2>
                     <div class="results-score">${correctAnswersCount} / ${quizData.length}</div>
-                    <div class="results-message">${message}</div>
+                    <div class="results-message ${messageClass}">${message}</div>
                     <div class="progress-bar">
                         <div class="progress" style="width: ${progressPercentage}%"></div>
                     </div>
                     <div class="results-buttons">
-                        <button id="restart-btn">Κάνε πάλι το Κουίζ</button>
-                        <a id="results-home-btn" href="https://conchr.github.io/Farsala-Center-Page/">Κεντρική Σελίδα</a>
+                        <button id="restart-btn">🔄 Κάνε πάλι το Κουίζ</button>
+                        <a id="results-home-btn" href="https://conchr.github.io/Games/">🏠 Κεντρική Σελίδα</a>
                     </div>
                 </div>
             `;
